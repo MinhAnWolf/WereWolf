@@ -1,0 +1,47 @@
+#home {
+    margin-top: 3%;
+}
+
+.box1 {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.box2 {
+    /*Not thing*/
+}
+
+.slide-event {
+    padding: 20px;
+    flex-grow: 7;    
+}
+
+.play {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-grow: 3;
+    text-align: center;
+}
+
+.card {
+    width: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.card > img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px 5px 0 0;
+    height: 300px;
+}
+
+.slide-event > img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
+    height: 300px;
+}

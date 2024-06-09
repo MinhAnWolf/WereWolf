@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Home from './module/home/home-page';
+import './App.css'
+import Header from './layout/Header';
+import { useReducer, useEffect, useState, ReactElement, cloneElement } from 'react';
+import tabReducer from './reducer/TabReducer';
+import ScreenCommon from './Common/ScreenCommon';
 
 function App() {
+  const [state, dispatch] = useReducer(tabReducer, { type: 0, payload: <Home /> });
+  const [changeScreen, setChangeScreen] = useState(Number);
+
+  function getDataScreen(screen: any) {
+    setChangeScreen(screen);
+  }
+
+  useEffect(() => {
+    dispatch({ type: changeScreen })
+  }, [changeScreen])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="container-screen">
+      <Header />
+      <hr />
+      
+      {state.payload}
     </div>
   );
 }

@@ -1,0 +1,52 @@
+#chat {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#chat .chat-container {
+    flex-grow: 4;
+}
+
+.chat-container > .show-chat {
+    width: 85%;
+    height: 200px;
+    border: 2px solid rgb(53, 52, 52);
+}
+
+.chat-container > .action-chat {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.action-chat > .input-chat {
+    flex-grow: 8;
+}
+ 
+.input-chat > .input-chat-field {
+    width: 100%;
+    height: 30px;
+    margin-left: 44px;
+}
+
+.action-chat > .send {
+    flex-grow: 2;
+}
+
+.send > .btn-send {
+    height: 36px;
+    margin-left: 50px;
+}
+
+#chat .list-room-container {
+    flex-grow: 6;
+}
+
+.list-room-container > .title {
+    display: flex;
+    flex-wrap: nowrap;
+    text-align: center;
+}
+
+.mr-10 {
+    margin: 10px;
+}
