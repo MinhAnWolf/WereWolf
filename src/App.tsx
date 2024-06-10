@@ -6,7 +6,7 @@ import Room from './module/room/Room';
 import PlayGame from './module/play-game/PlayGame';
 
 function App() {
-  const [screen, setScreen] = useState(2)
+  const [screen, setScreen] = useState(0)
 
   function reHeader() {
     if (screen === 0) {

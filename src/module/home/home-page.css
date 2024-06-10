@@ -4,7 +4,7 @@
 
 .box1 {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 .box2 {
@@ -18,7 +18,7 @@
 
 .play {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     flex-grow: 3;
     text-align: center;
 }
