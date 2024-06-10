@@ -1,5 +1,11 @@
-import {createContext} from "react";
+import { createContext } from "react";
 
-const ScreenCommon = createContext(Number);
+export type GlobalScreen = {
+    idScreen: Number,
+}
+
+const ScreenCommon = createContext<GlobalScreen>({
+    idScreen: 0
+});
 
 export default ScreenCommon;

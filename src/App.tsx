@@ -1,28 +1,37 @@
 import Home from './module/home/home-page';
 import './App.css'
 import Header from './layout/Header';
-import { useReducer, useEffect, useState, ReactElement, cloneElement } from 'react';
-import tabReducer from './reducer/TabReducer';
-import ScreenCommon from './Common/ScreenCommon';
+import { useReducer, useEffect, useState, } from 'react';
+import Room from './module/room/Room';
+import PlayGame from './module/play-game/PlayGame';
 
 function App() {
-  const [state, dispatch] = useReducer(tabReducer, { type: 0, payload: <Home /> });
-  const [changeScreen, setChangeScreen] = useState(Number);
+  const [screen, setScreen] = useState(2)
 
-  function getDataScreen(screen: any) {
-    setChangeScreen(screen);
+  function reHeader() {
+    if (screen === 0) {
+      return <Header />;
+    }
   }
 
-  useEffect(() => {
-    dispatch({ type: changeScreen })
-  }, [changeScreen])
+  function handleScreen() {
+    switch (screen) {
+      case 0:
+        return <Home setScreen={setScreen} />
+      case 1:
+        return <Room/>
+      case 2:
+          return <PlayGame/>
+      default:
+        break;
+    }
+  }
 
   return (
     <div id="container-screen">
-      <Header />
+      {reHeader()}
       <hr />
-      
-      {state.payload}
+      {handleScreen()}
     </div>
   );
 }
