@@ -4,9 +4,12 @@ import Header from './layout/Header';
 import { useReducer, useEffect, useState, } from 'react';
 import Room from './module/room/Room';
 import PlayGame from './module/play-game/PlayGame';
+import Login from './module/auth/Login';
+import Register from './module/auth/Register';
+
 
 function App() {
-  const [screen, setScreen] = useState(0)
+  const [screen, setScreen] = useState(4)
 
   function reHeader() {
     if (screen === 0) {
@@ -19,9 +22,13 @@ function App() {
       case 0:
         return <Home setScreen={setScreen} />
       case 1:
-        return <Room/>
+        return <Room />
       case 2:
-          return <PlayGame/>
+        return <PlayGame />
+      case 3:
+        return <Login />
+      case 4:
+        return <Register />
       default:
         break;
     }
