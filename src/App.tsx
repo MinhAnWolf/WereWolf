@@ -9,7 +9,7 @@ import Register from './module/auth/Register';
 
 
 function App() {
-  const [screen, setScreen] = useState(4)
+  const [screen, setScreen] = useState(1)
 
   function reHeader() {
     if (screen === 0) {

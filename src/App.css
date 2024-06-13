@@ -1,5 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
 #container-screen {
-    width: 1280px;
-    height: 720px;
-    border: 2px solid rgb(53, 52, 52);
+  width: 1280px;
+  height: 720px;
+  border: 2px solid rgb(53, 52, 52);
+  padding: 10px;
 }
