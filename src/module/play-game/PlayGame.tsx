@@ -1,26 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { User } from '../../core/model/User';
 import './PlayGame.css'
 
 function PlayGame() {
-    const [timePlay, setTimePlay] = useState(30);
-    useEffect(() => {
-        console.log("run use effect");
-        
-        const countDown = setInterval(() => {     
-            setTimePlay(prevTime => {
-                console.log(prevTime);
-                if (prevTime <= 0) {
-                    clearInterval(countDown);
-                    return 0;
-                }
-
-                return prevTime - 1;
-            })
-        }, 1000)
-
-        return () => clearInterval(countDown);
-    }, [])
+    // const listSlot = new Array<User>();
+    // listSlot.push()
+    // const [slotPlayer, setSlotPlayer] = useState([
+    //    {
+    //     id:
+    //    } 
+    // ])
 
     return (
         <div className='play-game-container'>
@@ -114,7 +103,7 @@ function PlayGame() {
                 <div className="vertical-line"></div>
                 <div className='container-time'>
                     <div className='time'>
-                        <h3>{timePlay}</h3>
+                        <h3>30s</h3>
                     </div>
 
                     <div className='sun-night'>
@@ -123,15 +112,6 @@ function PlayGame() {
                 </div>
                 <hr />
                 <div className='box-chat'>
-                    <div className='game-management-item-chat'>
-                        <p>Màn đêm buông xún</p>
-                    </div>
-
-                    <div className='chat-player'>
-                        
-                    </div>
-                </div>
-                <div className='action-chat'>
                     <input type="text" />
                     <button>Send</button>
                 </div>
