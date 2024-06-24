@@ -1,19 +1,22 @@
 import { loginService } from "../../service/AuthService";
-import { User } from "../type/User";
+import { User } from "../../type/User";
 import { useForm } from "react-hook-form";
 import Cookies from "cookies-ts";
 import { io } from "socket.io-client";
 import { useEffect } from "react";
 const cookies = new Cookies();
+interface LoginProps {
+  setScreen: React.Dispatch<React.SetStateAction<number>>
+}
 
-function Login() {
+const Login:React.FC<LoginProps> = ({setScreen}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  function submit(data: User) {
+  function submit(data: any) {
     loginService(data).then((res) => {
       if (res) {
         cookies.set("access", res.data.access);
@@ -21,15 +24,16 @@ function Login() {
 
         // connect socket
         const socket = io("http://localhost:9999");
-        useEffect(() => {
-          socket.on("connect", () => {
-            console.log(socket.id);
-          });
-
-          socket.on("disconnect", () => {
-            console.log(socket.id);
-          });
+        socket.on("connect", () => {
+          console.log(socket.id);
         });
+
+        socket.on("disconnect", () => {
+          console.log(socket.id);
+        });
+
+        localStorage.setItem('items', res.data.id);
+        setScreen(0);
       }
     });
   }
@@ -37,8 +41,8 @@ function Login() {
     <div className="login-container">
       <form onSubmit={handleSubmit((data) => submit(data))}>
         <h3>Login</h3>
-        <input type="text" placeholder="username" />
-        <input type="password" placeholder="password" />
+        <input {...register("username")} type="text" placeholder="username" />
+        <input {...register("password")} type="password" placeholder="password" />
         <button>Submit</button>
       </form>
     </div>

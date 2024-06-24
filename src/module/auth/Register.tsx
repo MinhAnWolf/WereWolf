@@ -1,24 +1,33 @@
 import { useForm } from "react-hook-form";
 import { registerService } from "../../service/AuthService";
-import { User } from "../type/User";
+import { User } from "../../type/User";
+interface RegisterProps {
+  setScreen: React.Dispatch<React.SetStateAction<number>>
+}
 
-function Register() {
+const Register:React.FC<RegisterProps> = ({setScreen}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  function submit(data: User) {
-    registerService(data).then((res) => {});
+  function submit(data: any) {
+    console.log(data);
+    
+    registerService(data).then((res) => {
+      if (res) {
+        setScreen(2);
+      }
+    });
   }
   return (
     <div className="register-container">
       <form onSubmit={handleSubmit((data) => submit(data))}>
         <h3>Register</h3>
-        <input type="text" placeholder="username" />
-        <input type="password" placeholder="password" />
-        <input type="password" placeholder="confirm" />
+        <input {...register("username")} type="text" placeholder="username" />
+        <input {...register("password")} type="password" placeholder="password" />
+        <input {...register("confirmPassword")} type="password" placeholder="confirm" />
         <button>Submit</button>
       </form>
     </div>

@@ -1,11 +1,13 @@
 import React from 'react';
 import RoomAndChat from '../room/RoomAndChat';
 import './home-page.css'
+import { io } from "socket.io-client";
 interface HomeProps {
     setScreen: React.Dispatch<React.SetStateAction<number>>
 }
 
 const Home:React.FC<HomeProps> = ({setScreen}) => {
+    //https://github.com/machadop1407/react-socketio-chat-app
 
     return (
         <div id='home'>

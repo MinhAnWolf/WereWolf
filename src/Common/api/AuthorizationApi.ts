@@ -2,7 +2,7 @@ import { enviroment } from "../../enviroment";
 
 export const AuthApi = {
   postApi: {
-    loginApi: enviroment + "/login",
-    register: enviroment + "/register",
+    loginApi: enviroment.BaseURL + "/login",
+    register: enviroment.BaseURL + "/register",
   },
 };

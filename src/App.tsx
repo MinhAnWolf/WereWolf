@@ -9,7 +9,7 @@ import axios from "axios";
 import { requestInterceptor } from "./interceptor/Interceptors";
 
 function App() {
-  const [screen, setScreen] = useState(0);
+  const [screen, setScreen] = useState(2);
 
   function reHeader() {
     if (screen === 0) {
@@ -24,9 +24,9 @@ function App() {
       case 1:
         return <PlayGame />;
       case 2:
-        return <Login />;
+        return <Login setScreen={setScreen}/>;
       case 3:
-        return <Register />;
+        return <Register setScreen={setScreen}/>;
       default:
         break;
     }
