@@ -50,7 +50,7 @@ function RoomAndChat() {
           </div>
         </div>
       </div>
-      <CreateRoom/>
+      <CreateRoom />
     </div>
   );
 }

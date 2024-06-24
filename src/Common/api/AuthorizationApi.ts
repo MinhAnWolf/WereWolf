@@ -1,6 +1,8 @@
-const AuthApi = {
-    postApi : {
-        loginApi: "/login",
-        register: "/register"
-    }
-}
+import { enviroment } from "../../enviroment";
+
+export const AuthApi = {
+  postApi: {
+    loginApi: enviroment + "/login",
+    register: enviroment + "/register",
+  },
+};
