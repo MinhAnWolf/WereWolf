@@ -1,5 +1,5 @@
-import React, { useReducer, useContext } from 'react';
-import Chat from '../chat/Chat';
+import React from 'react';
+import RoomAndChat from '../room/RoomAndChat';
 import './home-page.css'
 interface HomeProps {
     setScreen: React.Dispatch<React.SetStateAction<number>>
@@ -33,7 +33,7 @@ const Home:React.FC<HomeProps> = ({setScreen}) => {
                     </div>
                 </div>
                 <div className='box2'>
-                    <Chat></Chat>
+                    <RoomAndChat/>
                 </div>
         </div>
     )

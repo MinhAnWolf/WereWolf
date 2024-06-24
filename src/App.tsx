@@ -1,15 +1,15 @@
-import Home from './module/home/home-page';
-import './App.css'
-import Header from './layout/Header';
-import { useReducer, useEffect, useState, } from 'react';
-import Room from './module/room/Room';
-import PlayGame from './module/play-game/PlayGame';
-import Login from './module/auth/Login';
-import Register from './module/auth/Register';
-
+import Home from "./module/home/home-page";
+import "./App.css";
+import Header from "./layout/Header";
+import { useEffect, useState } from "react";
+import PlayGame from "./module/play-game/PlayGame";
+import Login from "./module/auth/Login";
+import Register from "./module/auth/Register";
+import axios from "axios";
+import { requestInterceptor } from "./interceptor/Interceptors";
 
 function App() {
-  const [screen, setScreen] = useState(1)
+  const [screen, setScreen] = useState(0);
 
   function reHeader() {
     if (screen === 0) {
@@ -20,19 +20,21 @@ function App() {
   function handleScreen() {
     switch (screen) {
       case 0:
-        return <Home setScreen={setScreen} />
+        return <Home setScreen={setScreen} />;
       case 1:
-        return <Room />
+        return <PlayGame />;
       case 2:
-        return <PlayGame />
+        return <Login />;
       case 3:
-        return <Login />
-      case 4:
-        return <Register />
+        return <Register />;
       default:
         break;
     }
   }
+
+  axios.interceptors.request.use(requestInterceptor, (error) => {
+    console.log(error);
+  });
 
   return (
     <div id="container-screen">
