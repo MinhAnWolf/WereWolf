@@ -12,7 +12,9 @@ const Home: React.FC<HomeProps> = ({ setScreen, socket }) => {
   //https://github.com/machadop1407/react-socketio-chat-app
 
   // show all room
-  socket.on("show-all-room", (socket) => {});
+  socket.on("list_room", (socket) => {
+    console.log();
+  });
 
   return (
     <div id="home">
