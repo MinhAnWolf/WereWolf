@@ -7,6 +7,8 @@ import Login from "./module/auth/Login";
 import Register from "./module/auth/Register";
 import axios from "axios";
 import { requestInterceptor } from "./interceptor/Interceptors";
+import { io } from "socket.io-client";
+const socket = io("http://localhost:9999");
 
 function App() {
   const [screen, setScreen] = useState(2);
@@ -17,16 +19,22 @@ function App() {
     }
   }
 
+  if (localStorage.getItem("uid")) {
+    socket.on("connect", () => {
+      console.log(socket.id);
+    });
+  }
+
   function handleScreen() {
     switch (screen) {
       case 0:
-        return <Home setScreen={setScreen} />;
+        return <Home setScreen={setScreen} socket={socket} />;
       case 1:
-        return <PlayGame />;
+        return <PlayGame socket={socket} />;
       case 2:
-        return <Login setScreen={setScreen}/>;
+        return <Login setScreen={setScreen} />;
       case 3:
-        return <Register setScreen={setScreen}/>;
+        return <Register setScreen={setScreen} />;
       default:
         break;
     }

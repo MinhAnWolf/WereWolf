@@ -1,6 +1,6 @@
 import axios from "axios";
 import { User } from "../type/User";
-import { AuthApi } from "../common/api/AuthorizationApi";
+import { AuthApi } from "../Common/api/AuthorizationApi";
 
 export async function registerService(payLoad: User) {
   return await axios.post(AuthApi.postApi.register, payLoad);
