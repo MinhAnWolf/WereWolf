@@ -1,56 +1,50 @@
-import Home from "./module/home/home-page";
 import "./App.css";
-import Header from "./layout/Header";
 import { useEffect, useState } from "react";
-import PlayGame from "./module/play-game/PlayGame";
-import Login from "./module/auth/Login";
-import Register from "./module/auth/Register";
 import axios from "axios";
 import { requestInterceptor } from "./interceptor/Interceptors";
-import { io } from "socket.io-client";
-const socket = io("http://localhost:9999");
+import Login from "./module/auth/Login";
+import Home from "./module/home/home-page";
+import Register from "./module/auth/Register";
 
 function App() {
-  const [screen, setScreen] = useState(2);
+  const [screen, setScreen] = useState(0);
 
-  function reHeader() {
-    if (screen === 0) {
-      return <Header />;
-    }
-  }
+  // useEffect(() => {
+  //   const getAuth = localStorage.getItem("uid");
+  //   if (getAuth !== null || getAuth !== undefined) {
+  //     setAuth(true);
+  //   }
 
-  if (localStorage.getItem("uid")) {
-    socket.on("connect", () => {
-      console.log(socket.id);
-    });
-  }
+  //   const interceptor = axios.interceptors.request.use(
+  //     requestInterceptor,
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
 
+  //   // Cleanup interceptor on component unmount
+  //   return () => {
+  //     axios.interceptors.request.eject(interceptor);
+  //   };
+  // }, []);
+
+  // axios.interceptors.request.use(requestInterceptor, (error) => {
+  //   console.log(error);
+  // });
   function handleScreen() {
     switch (screen) {
       case 0:
-        return <Home setScreen={setScreen} socket={socket} />;
-      case 1:
-        return <PlayGame socket={socket} />;
-      case 2:
         return <Login setScreen={setScreen} />;
-      case 3:
+      case 1:
         return <Register setScreen={setScreen} />;
+      case 2:
+        return <Home setScreen={setScreen} />;
       default:
         break;
     }
   }
 
-  axios.interceptors.request.use(requestInterceptor, (error) => {
-    console.log(error);
-  });
-
-  return (
-    <div id="container-screen">
-      {reHeader()}
-      <hr />
-      {handleScreen()}
-    </div>
-  );
+  return <div id="container-screen">{handleScreen()}</div>;
 }
 
 export default App;

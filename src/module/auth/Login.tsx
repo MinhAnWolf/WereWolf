@@ -1,8 +1,6 @@
 import { loginService } from "../../service/AuthService";
-import { User } from "../../type/User";
 import { useForm } from "react-hook-form";
 import Cookies from "cookies-ts";
-import { useEffect } from "react";
 const cookies = new Cookies();
 interface LoginProps {
   setScreen: React.Dispatch<React.SetStateAction<number>>;
@@ -16,12 +14,12 @@ const Login: React.FC<LoginProps> = ({ setScreen }) => {
   } = useForm();
 
   function submit(data: any) {
-    loginService(data).then((res) => {
+    loginService(data).then(async (res) => {
       if (res) {
         cookies.set("access", res.data.access);
         cookies.set("refresh", res.data.refresh);
         localStorage.setItem("uid", res.data.userId);
-        setScreen(0);
+        setScreen(2);
       }
     });
   }

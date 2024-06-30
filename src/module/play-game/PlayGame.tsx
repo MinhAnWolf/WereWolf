@@ -1,19 +1,40 @@
-import { useState } from "react";
-import { User } from "../../core/model/User";
+import { useEffect, useState } from "react";
+import { User } from "../../core/type/User";
 import "./PlayGame.css";
 import { Socket } from "socket.io-client";
-interface PlayGameProps {
-  socket: Socket;
-}
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux-toolkit/socket/SocketStore";
+import {
+  connectSocket,
+  disconnectSocket,
+} from "../../redux-toolkit/socket/SocketSlice";
+interface PlayGameProps {}
 
-const PlayGame: React.FC<PlayGameProps> = ({ socket: Socket }) => {
-  // const listSlot = new Array<User>();
-  // listSlot.push()
-  // const [slotPlayer, setSlotPlayer] = useState([
-  //    {
-  //     id:
-  //    }
-  // ])
+const PlayGame: React.FC<PlayGameProps> = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const socket = useSelector((state: RootState) => state.socket.socket);
+
+  useEffect(() => {
+    dispatch(connectSocket());
+  }, []);
+
+  useEffect(() => {
+    console.log("effect play game", socket);
+
+    const messageListener = (data: any) => {
+      console.log(data);
+    };
+
+    const listRoomListener = (data: any) => {
+      console.log(data);
+    };
+
+    socket?.on("message", messageListener);
+    socket?.on("list-room", listRoomListener);
+    socket?.on("message-private", (data: any) => {
+      console.log(data);
+    });
+  }, []);
 
   return (
     <div className="play-game-container">
