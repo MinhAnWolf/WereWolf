@@ -7,6 +7,8 @@ export const requestInterceptor = (
 ):
   | InternalAxiosRequestConfig<any>
   | Promise<InternalAxiosRequestConfig<any>> => {
+  console.log("interceptor FE");
+
   if (config.url?.includes("/login") || config.url?.includes("/register")) {
     return config;
   }

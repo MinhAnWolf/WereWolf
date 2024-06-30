@@ -28,9 +28,9 @@ function App() {
   //   };
   // }, []);
 
-  // axios.interceptors.request.use(requestInterceptor, (error) => {
-  //   console.log(error);
-  // });
+  axios.interceptors.request.use(requestInterceptor, (error) => {
+    console.log(error);
+  });
   function handleScreen() {
     switch (screen) {
       case 0:
