@@ -15,7 +15,17 @@ const PlayGame: React.FC<PlayGameProps> = () => {
   const socket = useSelector((state: RootState) => state.socket.socket);
 
   useEffect(() => {
-    dispatch(connectSocket());
+    dispatch(
+      connectSocket({
+        auth: {
+          access: "your-access-token",
+          refresh: "your-refresh-token",
+        },
+        headers: {
+          userid: "b5546a97-8b83-4be2-a352-fab9df601381",
+        },
+      })
+    );
   }, []);
 
   useEffect(() => {

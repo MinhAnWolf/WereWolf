@@ -1,8 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { access } from "fs";
 import { io, Socket } from "socket.io-client";
 
 interface SocketState {
   socket: Socket | null;
+}
+
+interface AuthSocket {
+  auth: {
+    access: string;
+    refresh: string;
+  };
+  headers: {
+    [key: string]: string;
+  };
 }
 
 const initialState: SocketState = {
@@ -13,8 +24,15 @@ const socketSlice = createSlice({
   name: "socket",
   initialState,
   reducers: {
-    connectSocket: (state: any) => {
-      state.socket = io("http://localhost:9999");
+    connectSocket: (state: any, action: PayloadAction<AuthSocket>) => {
+      const { auth, headers } = action.payload;
+      state.socket = io("http://localhost:9999", {
+        auth: {
+          access: auth.access,
+          refresh: auth.refresh,
+        },
+        extraHeaders: headers,
+      });
     },
     disconnectSocket: (state) => {
       state.socket?.disconnect();

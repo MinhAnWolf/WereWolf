@@ -28,7 +28,17 @@ const Home: React.FC<HomeProps> = () => {
   const socket = useSelector((state: RootState) => state.socket.socket);
 
   useEffect(() => {
-    dispatch(connectSocket());
+    dispatch(
+      connectSocket({
+        auth: {
+          access: "your-access-token",
+          refresh: "your-refresh-token",
+        },
+        headers: {
+          userid: "b5546a97-8b83-4be2-a352-fab9df601381",
+        },
+      })
+    );
   }, []);
 
   useEffect(() => {
@@ -45,6 +55,11 @@ const Home: React.FC<HomeProps> = () => {
 
     socket?.on("message", messageListener);
     socket?.on("list-room", listRoomListener);
+
+    return () => {
+      socket?.off("message", messageListener);
+      socket?.off("list-room", listRoomListener);
+    };
   });
 
   function handleScreen() {
