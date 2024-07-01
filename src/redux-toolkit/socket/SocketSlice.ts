@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { access } from "fs";
 import { io, Socket } from "socket.io-client";
+import Cookies from "cookies-ts";
+const cookies = new Cookies();
 
 interface SocketState {
   socket: Socket | null;
@@ -24,14 +26,15 @@ const socketSlice = createSlice({
   name: "socket",
   initialState,
   reducers: {
-    connectSocket: (state: any, action: PayloadAction<AuthSocket>) => {
-      const { auth, headers } = action.payload;
+    connectSocket: (state: any) => {
       state.socket = io("http://localhost:9999", {
         auth: {
-          access: auth.access,
-          refresh: auth.refresh,
+          access: cookies.get("access"),
+          refresh: cookies.get("refresh"),
         },
-        extraHeaders: headers,
+        extraHeaders: {
+          userid: localStorage.getItem("uid") as string,
+        },
       });
     },
     disconnectSocket: (state) => {

@@ -3,8 +3,9 @@ import CreateRoom from "../modal/create-room/CreateRoom";
 import { Room } from "../../core/type/Room";
 interface RoomAndChatProps {
   listRoom: Room[];
+  setScreen: React.Dispatch<React.SetStateAction<number>>;
 }
-const RoomAndChat: React.FC<RoomAndChatProps> = ({ listRoom }) => {
+const RoomAndChat: React.FC<RoomAndChatProps> = ({ listRoom, setScreen }) => {
   return (
     <div id="chat">
       <div className="chat-container">
@@ -40,7 +41,7 @@ const RoomAndChat: React.FC<RoomAndChatProps> = ({ listRoom }) => {
         ))}
       </div>
 
-      <CreateRoom />
+      <CreateRoom setScreen={setScreen} />
     </div>
   );
 };

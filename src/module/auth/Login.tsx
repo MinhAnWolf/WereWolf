@@ -15,10 +15,11 @@ const Login: React.FC<LoginProps> = ({ setScreen }) => {
 
   function submit(data: any) {
     loginService(data).then(async (res) => {
-      if (res) {
-        cookies.set("access", res.data.access);
-        cookies.set("refresh", res.data.refresh);
-        localStorage.setItem("uid", res.data.userId);
+      if (res.data.errorCode === 0) {
+        cookies.set("access", res.data.data.access);
+        cookies.set("refresh", res.data.data.rf);
+        localStorage.setItem("uid", res.data.data.userid);
+        localStorage.setItem("username", res.data.data.username);
         setScreen(2);
       }
     });

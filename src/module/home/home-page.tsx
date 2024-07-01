@@ -28,17 +28,7 @@ const Home: React.FC<HomeProps> = () => {
   const socket = useSelector((state: RootState) => state.socket.socket);
 
   useEffect(() => {
-    dispatch(
-      connectSocket({
-        auth: {
-          access: "your-access-token",
-          refresh: "your-refresh-token",
-        },
-        headers: {
-          userid: "b5546a97-8b83-4be2-a352-fab9df601381",
-        },
-      })
-    );
+    dispatch(connectSocket());
   }, []);
 
   useEffect(() => {
@@ -105,7 +95,7 @@ const Home: React.FC<HomeProps> = () => {
                 </div>
               </div>
               <div className="box2">
-                <RoomAndChat listRoom={listRoom} />
+                <RoomAndChat listRoom={listRoom} setScreen={setScreen} />
               </div>
             </div>
           </>
