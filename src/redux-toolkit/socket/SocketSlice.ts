@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { access } from "fs";
 import { io, Socket } from "socket.io-client";
 import Cookies from "cookies-ts";
 const cookies = new Cookies();

@@ -10,11 +10,14 @@ import { Room } from "../../../type/Room";
 import { useForm } from "react-hook-form";
 interface CreateRoomProps {
   setScreen: React.Dispatch<React.SetStateAction<number>>;
+  setDataReqRoom: string | null;
 }
 
-const CreateRoom: React.FC<CreateRoomProps> = ({ setScreen }) => {
+const CreateRoom: React.FC<CreateRoomProps> = (
+  { setScreen },
+  { setDataReqRoom }
+) => {
   const [modal, setModal] = useState(false);
-  const [room, setRoom] = useState<Room | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const socket = useSelector((state: RootState) => state.socket.socket);
   const {
@@ -22,29 +25,23 @@ const CreateRoom: React.FC<CreateRoomProps> = ({ setScreen }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  useEffect(() => {
-    dispatch(connectSocket());
-  }, []);
-
   const toggleModal = () => {
     setModal(!modal);
   };
 
-  async function createRoom(data: any) {
+  function createRoom(data: any) {
     // create room not yet validation input :))))
-    let crateRoomData: Room = {
+    socket?.emit("create-room", {
       userid: [localStorage.getItem("uid") as string],
       roomName: data.roomName,
       roomOwner: localStorage.getItem("username") as string,
       slot: 1,
-      type: "normal",
+      type: data.type,
       status: "open",
       clock: false,
       stage: "wait",
-    };
-    await setRoom(crateRoomData);
-    socket?.emit("create-room", room);
+    });
+    setDataReqRoom();
     setScreen(1);
   }
 
@@ -79,8 +76,8 @@ const CreateRoom: React.FC<CreateRoomProps> = ({ setScreen }) => {
                 Password:
                 <input {...register("password")} type="password" />
                 <br />
-                <button onClick={createRoom}>Create</button>
-                <button>Clear</button>
+                <button>Create</button>
+                {/* <button>Clear</button> */}
               </div>
               <button className="close-modal" onClick={toggleModal}>
                 CLOSE

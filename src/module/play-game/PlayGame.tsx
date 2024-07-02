@@ -8,33 +8,28 @@ import {
   connectSocket,
   disconnectSocket,
 } from "../../redux-toolkit/socket/SocketSlice";
-interface PlayGameProps {}
+interface PlayGameProps {
+  dataReqJoinRoom: string;
+}
 
-const PlayGame: React.FC<PlayGameProps> = () => {
+const PlayGame: React.FC<PlayGameProps> = ({ dataReqJoinRoom }) => {
   const dispatch = useDispatch<AppDispatch>();
   const socket = useSelector((state: RootState) => state.socket.socket);
-
   useEffect(() => {
-    dispatch(connectSocket());
-  }, []);
-
-  useEffect(() => {
-    console.log("effect play game", socket);
-
-    const messageListener = (data: any) => {
-      console.log(data);
-    };
-
-    const listRoomListener = (data: any) => {
-      console.log(data);
-    };
-
-    socket?.on("message", messageListener);
-    socket?.on("list-room", listRoomListener);
-    socket?.on("message-private", (data: any) => {
-      console.log(data);
+    socket?.emit("join-room", {
+      dataReqJoinRoom,
     });
-  }, []);
+  });
+
+  useEffect(() => {
+    socket?.on("join-room", (data: any) => {
+      console.log("event join-room: " + data);
+    });
+
+    socket?.on("message-room", (data: any) => {
+      console.log("event message-room: " + data);
+    });
+  }, [socket]);
 
   return (
     <div className="play-game-container">
@@ -50,102 +45,6 @@ const PlayGame: React.FC<PlayGameProps> = () => {
           <div className="theback">
             <img
               src="https://xuyenthan.wordpress.com/wp-content/uploads/2018/12/yr2ilgj-imgur.png"
-              alt=""
-            />
-          </div>
-        </div>
-
-        <div className="thecard">
-          <div className="thefront">
-            <img
-              src="https://storage.prompt-hunt.workers.dev/clf2x6g1i0009l308pws355fq_1"
-              alt=""
-            />
-          </div>
-
-          <div className="theback">
-            <img
-              src="https://hstatic.net/363/1000016363/10/2016/7-1/dx-villager.png"
-              alt=""
-            />
-          </div>
-        </div>
-
-        <div className="thecard">
-          <div className="thefront">
-            <img
-              src="https://storage.prompt-hunt.workers.dev/clf2x6g1i0009l308pws355fq_1"
-              alt=""
-            />
-          </div>
-
-          <div className="theback">
-            <img
-              src="https://hstatic.net/363/1000016363/10/2016/7-1/dx-villager.png"
-              alt=""
-            />
-          </div>
-        </div>
-
-        <div className="thecard">
-          <div className="thefront">
-            <img
-              src="https://storage.prompt-hunt.workers.dev/clf2x6g1i0009l308pws355fq_1"
-              alt=""
-            />
-          </div>
-
-          <div className="theback">
-            <img
-              src="https://hstatic.net/363/1000016363/10/2016/7-1/dx-villager.png"
-              alt=""
-            />
-          </div>
-        </div>
-
-        <div className="thecard">
-          <div className="thefront">
-            <img
-              src="https://storage.prompt-hunt.workers.dev/clf2x6g1i0009l308pws355fq_1"
-              alt=""
-            />
-          </div>
-
-          <div className="theback">
-            <img
-              src="https://hstatic.net/363/1000016363/10/2016/7-1/dx-villager.png"
-              alt=""
-            />
-          </div>
-        </div>
-
-        <div className="thecard">
-          <div className="thefront">
-            <img
-              src="https://storage.prompt-hunt.workers.dev/clf2x6g1i0009l308pws355fq_1"
-              alt=""
-            />
-          </div>
-
-          <div className="theback">
-            <img
-              src="https://hstatic.net/363/1000016363/10/2016/7-1/dx-villager.png"
-              alt=""
-            />
-          </div>
-        </div>
-
-        <div className="thecard">
-          <div className="thefront">
-            <img
-              src="https://storage.prompt-hunt.workers.dev/clf2x6g1i0009l308pws355fq_1"
-              alt=""
-            />
-          </div>
-
-          <div className="theback">
-            <img
-              src="https://hstatic.net/363/1000016363/10/2016/7-1/dx-villager.png"
               alt=""
             />
           </div>

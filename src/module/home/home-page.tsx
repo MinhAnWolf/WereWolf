@@ -26,9 +26,11 @@ const Home: React.FC<HomeProps> = () => {
   const [listRoom, setListRoom] = useState<Room[]>([]);
   const dispatch = useDispatch<AppDispatch>();
   const socket = useSelector((state: RootState) => state.socket.socket);
+  const [dataReqRoom, setDataReqRoom] = useState<string | null>(null);
 
   useEffect(() => {
     dispatch(connectSocket());
+    console.log(socket);
   }, []);
 
   useEffect(() => {
@@ -50,7 +52,7 @@ const Home: React.FC<HomeProps> = () => {
       socket?.off("message", messageListener);
       socket?.off("list-room", listRoomListener);
     };
-  });
+  }, [socket]);
 
   function handleScreen() {
     switch (screen) {

@@ -4,6 +4,7 @@ import { Room } from "../../core/type/Room";
 interface RoomAndChatProps {
   listRoom: Room[];
   setScreen: React.Dispatch<React.SetStateAction<number>>;
+  setDataReqRoom: string | null;
 }
 const RoomAndChat: React.FC<RoomAndChatProps> = ({ listRoom, setScreen }) => {
   return (
