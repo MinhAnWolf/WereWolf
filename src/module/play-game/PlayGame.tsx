@@ -15,21 +15,21 @@ interface PlayGameProps {
 const PlayGame: React.FC<PlayGameProps> = ({ dataReqJoinRoom }) => {
   const dispatch = useDispatch<AppDispatch>();
   const socket = useSelector((state: RootState) => state.socket.socket);
-  useEffect(() => {
-    socket?.emit("join-room", {
-      dataReqJoinRoom,
-    });
-  });
 
   useEffect(() => {
+    console.log(dataReqJoinRoom);
+    socket?.emit("join-room", {
+      roomId: dataReqJoinRoom,
+    });
+
     socket?.on("join-room", (data: any) => {
       console.log("event join-room: " + data);
     });
 
     socket?.on("message-room", (data: any) => {
-      console.log("event message-room: " + data);
+      console.log(data);
     });
-  }, [socket]);
+  }, [socket, dataReqJoinRoom]);
 
   return (
     <div className="play-game-container">

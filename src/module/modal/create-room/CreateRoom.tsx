@@ -10,13 +10,13 @@ import { Room } from "../../../type/Room";
 import { useForm } from "react-hook-form";
 interface CreateRoomProps {
   setScreen: React.Dispatch<React.SetStateAction<number>>;
-  setDataReqRoom: string | null;
+  setDataReqJoinRoom: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const CreateRoom: React.FC<CreateRoomProps> = (
-  { setScreen },
-  { setDataReqRoom }
-) => {
+const CreateRoom: React.FC<CreateRoomProps> = ({
+  setScreen,
+  setDataReqJoinRoom,
+}) => {
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const socket = useSelector((state: RootState) => state.socket.socket);
@@ -41,7 +41,11 @@ const CreateRoom: React.FC<CreateRoomProps> = (
       clock: false,
       stage: "wait",
     });
-    setDataReqRoom();
+
+    socket?.on("create-room", (data: any) => {
+      setDataReqJoinRoom(data);
+    });
+
     setScreen(1);
   }
 

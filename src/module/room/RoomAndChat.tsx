@@ -4,9 +4,15 @@ import { Room } from "../../core/type/Room";
 interface RoomAndChatProps {
   listRoom: Room[];
   setScreen: React.Dispatch<React.SetStateAction<number>>;
-  setDataReqRoom: string | null;
+  dataReqJoinRoom: string;
+  setDataReqJoinRoom: React.Dispatch<React.SetStateAction<string>>;
 }
-const RoomAndChat: React.FC<RoomAndChatProps> = ({ listRoom, setScreen }) => {
+const RoomAndChat: React.FC<RoomAndChatProps> = ({
+  listRoom,
+  setScreen,
+  dataReqJoinRoom,
+  setDataReqJoinRoom,
+}) => {
   return (
     <div id="chat">
       <div className="chat-container">
@@ -42,7 +48,10 @@ const RoomAndChat: React.FC<RoomAndChatProps> = ({ listRoom, setScreen }) => {
         ))}
       </div>
 
-      <CreateRoom setScreen={setScreen} />
+      <CreateRoom
+        setScreen={setScreen}
+        setDataReqJoinRoom={setDataReqJoinRoom}
+      />
     </div>
   );
 };

@@ -26,7 +26,7 @@ const Home: React.FC<HomeProps> = () => {
   const [listRoom, setListRoom] = useState<Room[]>([]);
   const dispatch = useDispatch<AppDispatch>();
   const socket = useSelector((state: RootState) => state.socket.socket);
-  const [dataReqRoom, setDataReqRoom] = useState<string | null>(null);
+  const [dataReqJoinRoom, setDataReqJoinRoom] = useState<string>("");
 
   useEffect(() => {
     dispatch(connectSocket());
@@ -57,7 +57,7 @@ const Home: React.FC<HomeProps> = () => {
   function handleScreen() {
     switch (screen) {
       case 1:
-        return <PlayGame />;
+        return <PlayGame dataReqJoinRoom={dataReqJoinRoom} />;
       case 0:
         return (
           <>
@@ -97,7 +97,12 @@ const Home: React.FC<HomeProps> = () => {
                 </div>
               </div>
               <div className="box2">
-                <RoomAndChat listRoom={listRoom} setScreen={setScreen} />
+                <RoomAndChat
+                  listRoom={listRoom}
+                  setScreen={setScreen}
+                  dataReqJoinRoom={dataReqJoinRoom}
+                  setDataReqJoinRoom={setDataReqJoinRoom}
+                />
               </div>
             </div>
           </>
