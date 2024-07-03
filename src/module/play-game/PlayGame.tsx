@@ -17,17 +17,29 @@ const PlayGame: React.FC<PlayGameProps> = ({ dataReqJoinRoom }) => {
   const dispatch = useDispatch<AppDispatch>();
   const socket = useSelector((state: RootState) => state.socket.socket);
 
+  // useEffect(() => {
+  //   dispatch(connectSocket());
+  //   console.log(socket);
+  // }, []);
+
   useEffect(() => {
-    console.log(dataReqJoinRoom);
+    console.log("run play game ui");
+
     socket?.emit("join-room", {
       roomId: dataReqJoinRoom,
     });
 
+    socket?.on("test", (data: any) => {
+      console.log(data);
+    });
+
     socket?.on("join-room", (data: any) => {
-      console.log("event join-room: " + data);
+      console.log("join-room");
+      console.log(data);
     });
 
     socket?.on("message-room", (data: any) => {
+      console.log("message-room");
       console.log(data);
     });
   }, [dataReqJoinRoom]);

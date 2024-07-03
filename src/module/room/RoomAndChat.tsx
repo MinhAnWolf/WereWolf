@@ -17,7 +17,7 @@ const RoomAndChat: React.FC<RoomAndChatProps> = ({
 }) => {
   function clickJoinRoom(roomId: string) {
     setDataReqJoinRoom(roomId);
-    setScreen(2);
+    setScreen(1);
   }
   return (
     <div id="chat">
