@@ -8,6 +8,7 @@ import {
   connectSocket,
   disconnectSocket,
 } from "../../redux-toolkit/socket/SocketSlice";
+import { Room } from "../../type/Room";
 interface PlayGameProps {
   dataReqJoinRoom: string;
 }
@@ -29,7 +30,7 @@ const PlayGame: React.FC<PlayGameProps> = ({ dataReqJoinRoom }) => {
     socket?.on("message-room", (data: any) => {
       console.log(data);
     });
-  }, [socket, dataReqJoinRoom]);
+  }, [dataReqJoinRoom]);
 
   return (
     <div className="play-game-container">

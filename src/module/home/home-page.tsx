@@ -55,6 +55,7 @@ const Home: React.FC<HomeProps> = () => {
   }, [socket]);
 
   function handleScreen() {
+    console.log(dataReqJoinRoom);
     switch (screen) {
       case 1:
         return <PlayGame dataReqJoinRoom={dataReqJoinRoom} />;
