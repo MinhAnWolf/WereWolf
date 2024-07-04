@@ -4,11 +4,9 @@ import "./PlayGame.css";
 import { Socket } from "socket.io-client";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux-toolkit/socket/SocketStore";
-import {
-  connectSocket,
-  disconnectSocket,
-} from "../../redux-toolkit/socket/SocketSlice";
 import { Room } from "../../type/Room";
+import { Player } from "../../type/Player";
+import { connectSocket } from "../../redux-toolkit/socket/SocketSlice";
 interface PlayGameProps {
   dataReqJoinRoom: string;
 }
@@ -16,6 +14,7 @@ interface PlayGameProps {
 const PlayGame: React.FC<PlayGameProps> = ({ dataReqJoinRoom }) => {
   const dispatch = useDispatch<AppDispatch>();
   const socket = useSelector((state: RootState) => state.socket.socket);
+  const [player, setPlayer] = useState<Player>();
 
   // useEffect(() => {
   //   dispatch(connectSocket());
@@ -23,24 +22,24 @@ const PlayGame: React.FC<PlayGameProps> = ({ dataReqJoinRoom }) => {
   // }, []);
 
   useEffect(() => {
-    console.log("run play game ui");
+    switch (action) {
+      case "create":
+        break;
+      case "join":
+        break;
+
+      default:
+        break;
+    }
+    console.log("run play game ui", dataReqJoinRoom);
 
     socket?.emit("join-room", {
       roomId: dataReqJoinRoom,
     });
 
-    socket?.on("test", (data: any) => {
-      console.log(data);
-    });
-
-    socket?.on("join-room", (data: any) => {
-      console.log("join-room");
-      console.log(data);
-    });
-
     socket?.on("message-room", (data: any) => {
-      console.log("message-room");
       console.log(data);
+      setPlayer(data.data);
     });
   }, [dataReqJoinRoom]);
 
@@ -49,10 +48,7 @@ const PlayGame: React.FC<PlayGameProps> = ({ dataReqJoinRoom }) => {
       <div className="player">
         <div className="thecard">
           <div className="thefront">
-            <img
-              src="https://storage.prompt-hunt.workers.dev/clf2x74do000djz08a0bb6fg1_1"
-              alt=""
-            />
+            <img src={player?.avartar} alt="" />
           </div>
 
           <div className="theback">
